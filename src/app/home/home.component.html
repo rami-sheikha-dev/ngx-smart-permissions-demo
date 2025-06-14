@@ -1,12 +1,0 @@
-<h2>🏋️‍♂️ تجربة صلاحيات المستخدم</h2>
-
-<button (click)="loginAsAdmin()">👑 تسجيل كـ Admin</button>
-<button (click)="loginAsUser()">👤 تسجيل كـ User</button>
-<button (click)="logout()">🚪 تسجيل خروج</button>
-
-<br /><br />
-
-@if (!loading) {
-    <button *ngxHasPermission="'edit-users'">🔧 زر خاص بالإداريين</button>
-<button *ngxHasPermission="'view-dashboard'">📊 زر عام لعرض اللوحة</button>
-}
