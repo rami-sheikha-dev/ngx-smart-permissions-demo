@@ -12,21 +12,24 @@ import { PermissionService } from 'ngx-smart-permissions';
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-username = '';
+  username = '';
   password = '';
+  error = '';
 
   constructor(
     private authService: AuthService,
     private permissionService: PermissionService,
     private router: Router
-  ) { }
+  ) {}
 
-onLogin() {
-    this.authService.login(this.username, this.password).subscribe(success => {
-      if (success) {
+  onLogin() {
+    this.authService.login(this.username, this.password).subscribe({
+      next: ({ user, permissions, role }) => {
+        this.permissionService.switchPermissions(permissions, role === 'admin', role);
         this.router.navigate(['/']);
-      } else {
-        alert('Invalid credentials');
+      },
+      error: err => {
+        this.error = err.message;
       }
     });
   }

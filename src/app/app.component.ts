@@ -1,38 +1,36 @@
-import { Component, inject } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { AuthService } from '../core/services/auth.service';
-import { PermissionService } from 'ngx-smart-permissions';
-import { NgxSmartPermissionsModule } from 'ngx-smart-permissions';
+import { NgxSmartPermissionsModule, PermissionService, HasRoleDirective } from 'ngx-smart-permissions';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, NgIf, NgxSmartPermissionsModule],
+  imports: [RouterModule, NgIf, NgxSmartPermissionsModule, HasRoleDirective],
   templateUrl: './app.component.html'
 })
-export class AppComponent {
-  private authService = inject(AuthService);
-  private permissionService = inject(PermissionService);
-  private router = inject(Router);
+export class AppComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private permissionService: PermissionService
+  ) {}
 
-  constructor() {
-    // تحميل صلاحيات المستخدم إذا مسجل دخول
+  ngOnInit() {
     if (this.authService.isLoggedIn()) {
-      const permissions = this.authService.getPermissions();
-      this.permissionService.switchPermissions(permissions);
-    } else {
-      // إذا مش مسجل دخول، نضمن يرجع للـ login
-      this.router.navigate(['/login']);
+      const user = this.authService.getUser();
+      const permissions = user?.permissions || [];
+      const role = user?.role || '';
+      this.permissionService.switchPermissions(permissions, role === 'admin', role);
     }
-  }
-
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
   }
 
   logout() {
     this.authService.logout();
-    // ما في داعي لـ switchPermissions([]) لأن logout بيمسحها أصلاً
+    location.reload();
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
 }

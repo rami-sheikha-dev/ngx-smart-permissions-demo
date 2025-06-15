@@ -12,25 +12,12 @@ import { PermissionService, HasPermissionDirective } from 'ngx-smart-permissions
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  loading = false;
-  constructor(private permissionService: PermissionService) { }
+   constructor(private permissionService: PermissionService) { }
 
-  loginAsAdmin() {
-    this.permissionService.switchPermissions([], true);
-  }
-
-  loginAsUser() {
-
-    this.permissionService.switchPermissions([
-     ]);
-
-  }
+ 
 
   logout() {
-    this.loading = true
-    this.permissionService.switchPermissions([]);
-    setTimeout(() => {
-      this.loading = false
-    }, 100);
+     this.permissionService.switchPermissions([]);
+ 
   }
 }

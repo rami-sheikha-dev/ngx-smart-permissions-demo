@@ -4,15 +4,15 @@
       "id": 1,
       "username": "admin",
       "password": "123456",
-      "token": "admin-token-123",
-      "permissions": ["access-app", "view-dashboard", "edit-users"]
+      "role": "admin",
+  "permissions": ["access-app", "view-dashboard", "admin-dashboard"]
     },
     {
       "id": 2,
       "username": "user",
       "password": "123456",
-      "token": "user-token-456",
-      "permissions": ["access-app"]
+      "role": "user",
+      "permissions": ["access-app", "view-user"]
     }
   ]
 }
