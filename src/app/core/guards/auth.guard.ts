@@ -1,14 +1,6 @@
 import { inject } from '@angular/core';
-import {
-  CanActivateFn,
-  Router,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-
-
-
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
@@ -19,13 +11,13 @@ export const authGuard: CanActivateFn = (route, state) => {
     return false;
   }
 
-  const requiredPermission = route.data?.['permission'];
-  if (requiredPermission && !authService.getPermissions().includes(requiredPermission)) {
+  const requiredRole = route.data?.['role'];
+  const userRole = authService.getRole();
+
+  if (requiredRole && userRole !== requiredRole && userRole !== 'admin') {
     router.navigate(['/unauthorized']);
     return false;
   }
 
   return true;
 };
-
- 

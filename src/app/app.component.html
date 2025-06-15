@@ -1,41 +1,23 @@
-<header *ngIf="isLoggedIn()">
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/">ngx-smart-permissions</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"> <span
-          class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">🏠 Home</a>
-          </li>
-          <li class="nav-item" *ngxHasPermission="'view-dashboard'">
-            <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">📊 Dashboard</a>
-          </li>
-          <li class="nav-item" *ngxHasPermission="'view-user'">
-            <a class="nav-link">📊 User</a>
-          </li>
-          <li class="nav-item" *ngxHasPermission="'admin-dashboard'">
-  <a class="nav-link" routerLink="/admin">Admin Panel</a>
-</li>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <a class="navbar-brand" routerLink="/">🏠 Home</a>
 
-        </ul>
+  <ul class="navbar-nav me-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/dashboard" *ngxHasPermission="'view-dashboard'">Dashboard</a>
+    </li>
+    <li class="nav-item" *ngxHasPermission="'manage-roles'">
+      <a class="nav-link" routerLink="/admin/manage">Manage Roles</a>
+    </li>
+  </ul>
 
-        <div class="d-flex">
-          <button *ngIf="isLoggedIn()" class="btn btn-outline-light" (click)="logout()">تسجيل الخروج</button>
-        </div>
-      </div>
-    </div>
-  </nav>
-</header>
+  <ul class="navbar-nav ms-auto">
+    <li class="nav-item text-white me-3" *ngIf="isLoggedIn()">
+      <span>Role: {{ role }}</span>
+    </li>
+    <li class="nav-item" *ngIf="isLoggedIn()">
+      <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
+    </li>
+  </ul>
+</nav>
 
-<main>
-  <div class="container mt-5 pt-5">
-     
-    <div *ngxHasRole="'admin'">مرحبًا أيها المدير</div>
-    <div *ngxHasRole="'user'">مرحبًا أيها المستخدم</div>
-    <router-outlet></router-outlet>
-  </div>
-</main>
+<router-outlet />

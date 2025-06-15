@@ -5,7 +5,8 @@
       "username": "admin",
       "password": "123456",
       "role": "admin",
-  "permissions": ["access-app", "view-dashboard", "admin-dashboard"]
+  "permissions": ["access-app", "view-dashboard", "admin-dashboard", "manage-roles"]
+  
     },
     {
       "id": 2,
