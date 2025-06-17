@@ -5,10 +5,9 @@ import { NgIf } from '@angular/common';
 import { AuthService } from './core/services/auth.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterModule, NgIf, NgxSmartPermissionsModule, HasRoleDirective],
-  templateUrl: './app.component.html'
+    selector: 'app-root',
+    imports: [RouterModule, NgIf, NgxSmartPermissionsModule, HasRoleDirective],
+    templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   role = '';

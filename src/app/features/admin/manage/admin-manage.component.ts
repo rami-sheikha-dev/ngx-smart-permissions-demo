@@ -4,10 +4,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-admin-manage',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
+    selector: 'app-admin-manage',
+    imports: [CommonModule, FormsModule],
+    template: `
     <div class="container mt-4">
       <h2>Manage Roles & Permissions</h2>
 

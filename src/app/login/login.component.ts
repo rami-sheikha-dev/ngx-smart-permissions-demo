@@ -6,10 +6,9 @@ import { AuthService } from '../core/services/auth.service';
 import { PermissionService } from 'ngx-smart-permissions';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './login.component.html'
+    selector: 'app-login',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './login.component.html'
 })
 export class LoginComponent {
   username = '';
